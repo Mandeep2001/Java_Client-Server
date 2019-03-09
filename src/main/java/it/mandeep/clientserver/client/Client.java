@@ -41,6 +41,14 @@ public class Client {
             System.err.println("Errore durante la connessione al server.. " + ex.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                server.close();
+                out.close();
+                in.close();
+            } catch (IOException ex) {
+                System.err.println("Errore durante la chiusera della connessione: " + ex.getMessage());
+            }
         }
 
         System.out.println("Risposta del server: " + responce);

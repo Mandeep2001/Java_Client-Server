@@ -59,6 +59,14 @@ public class ClientHandler extends Thread {
             System.err.println("Errore durante la lettura del messaggio.. " + ex.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                client.close();
+                out.close();
+                in.close();
+            } catch (IOException ex) {
+                System.err.println("Errore durante la chiusura della connessione: " + ex.getMessage());
+            }
         }
     }
 }
