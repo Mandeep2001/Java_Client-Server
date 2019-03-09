@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 public class Server {
 
     public static final short SERVER_PORT = 8080;
+    public static final String SERVER_IP = "localhost";
 
     private ServerSocket server;
 

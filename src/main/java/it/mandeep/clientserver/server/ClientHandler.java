@@ -18,29 +18,29 @@ public class ClientHandler extends Thread {
     @Override
     public void run() {
 
-        while (client.isConnected()) {
+        try {
 
-            try {
+            out = new ObjectOutputStream(client.getOutputStream());
+            in = new ObjectInputStream(client.getInputStream());
 
-                out = new ObjectOutputStream(client.getOutputStream());
-                in = new ObjectInputStream(client.getInputStream());
+        } catch (IOException ex) {
+            System.err.println("Errore durante l'inizializzazione degli stream.. " + ex.getMessage());
+        }
 
-            } catch (IOException ex) {
-                System.err.println("Errore durante l'inizializzazione degli stream.. " + ex.getMessage());
+        try {
+            String message = (String) in.readObject();
+            System.out.println("Messaggio ricevuto: " + message);
+
+            if (message.equals("Ciao Server!")) {
+                out.writeObject("Ciao Client!");
+            } else {
+                out.writeObject("Risposta dal server.");
             }
 
-            try {
-
-                String message = in.readUTF();
-                System.out.println("Messaggio ricevuto: " + message);
-
-                if (message.equals("Ciao Server!")) {
-                    out.writeUTF("Ciao Client!");
-                }
-
-            } catch (IOException ex) {
-                System.err.println("Errore durante la lettura del messaggio.. " + ex.getMessage());
-            }
+        } catch (IOException ex) {
+            System.err.println("Errore durante la lettura del messaggio.. " + ex.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
