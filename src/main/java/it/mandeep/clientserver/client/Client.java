@@ -8,6 +8,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * Client class.
+ *
+ * Questa classe rappresenta il client, invia una semplice richiesta che al server
+ * che la elaborerà per dare una risposta.
+ */
 public class Client {
 
     public static void main(String[] args) {
